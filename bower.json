@@ -1,0 +1,10 @@
+{
+    "name": "swAngular-SimpleGrid",
+    "version": "1.0.0",
+    "main": "swAngular-SimpleGrid.js",
+    "ignore": [ ],
+    "dependencies": {
+        "bootstrap": "~3.0.3"
+    },
+    "devDependencies": { }
+}
