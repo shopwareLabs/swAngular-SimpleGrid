@@ -6,10 +6,27 @@ angular.module('swAngularSimpleGrid', [])
             transclude: false,
             scope: {
                 list: '=ngModel',
-                options: '=swOptions'
+                options: '=?swOptions'
             },
             templateUrl: "/directives/swAngular-SimpleGrid/swAngular-SimpleGrid.html",
             link: function ($scope, $element, $attrs) {
+                if (!$scope.options) {
+                    $scope.options = {};
+                }
+                if (!$scope.options.fields && $scope.list.length>0) {
+                    $scope.options.fields = [];
+                    for (var key in $scope.list[0]) {
+                        if ($scope.list[0].hasOwnProperty(key)) {
+                            var item = $scope.list[key];
+                            if (typeof item == 'function') {
+                                continue;
+                            }
+
+                            $scope.options.fields.push({label: key, column: key});
+                        }
+                    }
+                }
+
                 for (var fieldKey in $scope.options.fields) {
                     if (typeof $scope.options.fields[fieldKey].renderer !== 'function') {
                         $scope.options.fields[fieldKey].renderer = function (input, row) {
