@@ -1,5 +1,6 @@
 var scripts = document.getElementsByTagName("script");
-var currentScriptPath = scripts[scripts.length-1].src;
+var pathMap = pathMap || {};
+pathMap['swAngular-SimpleGrid'] = scripts[scripts.length - 1].src;
 
 angular.module('swAngularSimpleGrid', [])
     .directive('swAngularSimpleGrid', function () {
@@ -11,7 +12,7 @@ angular.module('swAngularSimpleGrid', [])
                 list: '=ngModel',
                 options: '=?swOptions'
             },
-            templateUrl: currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1) + "swAngular-SimpleGrid.html",
+            templateUrl: pathMap['swAngular-SimpleGrid'].substring(0, pathMap['swAngular-SimpleGrid'].lastIndexOf('/') + 1) + "swAngular-SimpleGrid.html",
             link: function ($scope, $element, $attrs) {
                 if (!$scope.options) {
                     $scope.options = {};
