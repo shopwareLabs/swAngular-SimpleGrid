@@ -1,7 +1,3 @@
-var scripts = document.getElementsByTagName("script");
-var pathMap = pathMap || {};
-pathMap['swAngular-SimpleGrid'] = scripts[scripts.length - 1].src;
-
 angular.module('swAngularSimpleGrid', [])
     .directive('swAngularSimpleGrid', function () {
         return {
@@ -12,7 +8,44 @@ angular.module('swAngularSimpleGrid', [])
                 list: '=ngModel',
                 options: '=?swOptions'
             },
-            templateUrl: pathMap['swAngular-SimpleGrid'].substring(0, pathMap['swAngular-SimpleGrid'].lastIndexOf('/') + 1) + "swAngular-SimpleGrid.html",
+            template: [
+                '<div>',
+                '    <table class="table table-condensed table-hover table-striped">',
+                '        <thead>',
+                '            <tr>',
+                '                <th ng-repeat="field in options.fields" style="width: {{field.weight}}%">',
+                '                    <a ng-href="#">{{field.label}}:</a>',
+                '                </th>',
+                '            </tr>',
+                '        </thead>',
+                '        <tbody>',
+                '            <tr ng-repeat="entry in list">',
+                '                <td ng-repeat="field in options.fields">',
+                '                {{field.renderer(entry[field.column], entry)}}',
+                '                </td>',
+                '                <td ng-repeat="button in options.buttons">',
+                '                    <div ng-if="!button.button">',
+                '                        <div ng-if="button.glyphicon.length>0">',
+                '                            <a ng-click="button.onclick(entry)">',
+                '                                <i class="glyphicon glyphicon-{{button.glyphicon}}" title="{{button.label}}"></i>',
+                '                            </a>',
+                '                        </div>',
+                '                        <div ng-if="button.iconPath.length>0">',
+                '                            <img ng-src="button.iconPath" alt="{{button.label}}"/>',
+                '                        </div>',
+                '                    </div>',
+                '                    <button ng-if="button.button" ng-click="button.onclick(entry)">',
+                '                        <i ng-if="button.glyphicon.length>0" class="glyphicon glyphicon-{{button.glyphicon}}"',
+                '                        title="{{button.label}}"></i>',
+                '                        <img ng-if="button.iconPath.length>0" ng-src="button.iconPath" alt="{{button.label}}"/>',
+                '                        {{button.label}}',
+                '                    </button>',
+                '                </td>',
+                '            </tr>',
+                '        </tbody>',
+                '    </table>',
+                '</div>'
+            ].join('\n'),
             link: function ($scope, $element, $attrs) {
                 if (!$scope.options) {
                     $scope.options = {};
