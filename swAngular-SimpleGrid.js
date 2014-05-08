@@ -14,7 +14,7 @@ angular.module('swAngularSimpleGrid', [])
                 '        <thead>',
                 '            <tr>',
                 '                <th ng-repeat="field in options.fields" style="width: {{field.weight}}%">',
-                '                    <a ng-href="#">{{field.label}}:</a>',
+                '                    <a ng-href="">{{field.label}}:</a>',
                 '                </th>',
                 '            </tr>',
                 '        </thead>',
